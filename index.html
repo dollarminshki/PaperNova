@@ -144,7 +144,7 @@ PaperNova
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://unpkg.com/@cantoo/pdf-lib@2.11.1/dist/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
@@ -206,6 +206,43 @@ if(!files.length){message('Please select at least one file first.','error');retu
 const PDFLib=window.PDFLib;
 try{
 $('processBtn').disabled=true;message('Processing your files…');
+
+if(currentTool==='protect'){
+  if(files.length!==1) throw Error('Select exactly one PDF.');
+
+  const password=$('pdfPassword').value;
+  const confirmation=$('confirmPassword').value;
+
+  if(password.length<8)
+    throw Error('Use a password with at least 8 characters.');
+
+  if(password!==confirmation)
+    throw Error('The passwords do not match.');
+
+  const doc=await PDFLib.PDFDocument.load(
+    await files[0].arrayBuffer()
+  );
+
+  doc.encrypt({
+    userPassword:password,
+    ownerPassword:password+'-owner',
+    permissions:{
+      printing:'highResolution',
+      modifying:false,
+      copying:false,
+      annotating:false
+    }
+  });
+
+  const bytes=await doc.save();
+
+  downloadBlob(
+    new Blob([bytes],{type:'application/pdf'}),
+    baseName(files[0].name)+'-protected.pdf'
+  );
+}
+else 
+  
 if(currentTool==='merge'){
 if(files.length<2)throw Error('Select at least two PDF files to merge.');
 const out=await PDFLib.PDFDocument.create();
