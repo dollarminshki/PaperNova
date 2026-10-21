@@ -173,7 +173,20 @@ if(tool==='rotate'){
 options.innerHTML='<label for="angle" style="display:block;margin:15px 0 7px;font-size:13px">Rotation</label><select id="angle" style="width:100%;padding:12px;background:#0b0d18;border:1px solid #343950;border-radius:10px;color:white"><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option></select>';
 }
 backdrop.classList.add('open');$('processBtn').disabled=false;
-if(tool==='protect'||tool==='word'){
+
+if(tool==='protect'){
+options.innerHTML=`
+<label for="pdfPassword" style="display:block;margin:15px 0 7px;font-size:13px">Choose a password</label>
+<input id="pdfPassword" type="password" autocomplete="new-password" placeholder="Enter a strong password" style="width:100%;padding:12px;background:#0b0d18;border:1px solid #343950;border-radius:10px;color:white">
+<label for="confirmPassword" style="display:block;margin:15px 0 7px;font-size:13px">Confirm password</label>
+<input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Enter the password again" style="width:100%;padding:12px;background:#0b0d18;border:1px solid #343950;border-radius:10px;color:white">
+`;
+}
+if(tool==='word'){
+status.textContent='PDF to Word conversion will be enabled in a later step.';
+$('processBtn').disabled=true;
+}
+
 status.textContent=tool==='protect'?'Password encryption will be added in a later version.':'High-quality PDF-to-Word conversion needs a dedicated conversion engine and will be added later.';
 $('processBtn').disabled=true;
 }
