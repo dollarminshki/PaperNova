@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d18">
+<meta name="description" content="PaperNova makes PDF tasks simple. Merge, split, rotate and convert documents in one elegant workspace.">
+<title>PaperNova | Your PDFs, perfected</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0d18;--panel:#121626;--panel2:#191f33;--line:#292f46;--text:#f6f7ff;--muted:#969eb8;--purple:#9575ff;--blue:#55c8ff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#282050 0%,var(--bg) 48%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+header{height:76px;border-bottom:1px solid #ffffff10;display:flex;align-items:center;justify-content:space-between;padding:0 max(5%,calc((100% - 1180px)/2));gap:20px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;font-size:22px;font-weight:800;letter-spacing:-.8px}
+.logo{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#a78bfa,#6366f1);box-shadow:0 6px 24px #8265ff40}
+.logo svg{width:23px;height:23px}
+nav{display:flex;gap:24px;align-items:center}
+nav a{font-size:13px;color:var(--muted);text-decoration:none}
+nav a:hover{color:white}
+.header-tag{font-size:12px;color:#c6b7ff;border:1px solid #a78bfa40;background:#a78bfa12;padding:9px 13px;border-radius:20px}
+main{max-width:1180px;margin:auto;padding:0 24px}
+.hero{text-align:center;padding:74px 0 43px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #9b83ff38;background:#a78bfa0e;color:#c8baff;padding:8px 13px;border-radius:30px;font-size:12px;font-weight:650}
+.dot{width:7px;height:7px;border-radius:50%;background:#a78bfa;box-shadow:0 0 12px #a78bfa}
+h1{font-size:clamp(40px,6vw,68px);line-height:1.06;letter-spacing:-3px;margin:23px 0 17px;font-weight:850}
+.gradient{background:linear-gradient(95deg,#c4b5fd,#8b9dff 55%,#67d7ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:570px;margin:0 auto;color:var(--muted);font-size:16px;line-height:1.8}
+.search-wrap{max-width:590px;margin:29px auto 0;position:relative}
+.search-wrap input{width:100%;padding:16px 18px 16px 47px;background:#111526;border:1px solid #343950;border-radius:14px;color:white;outline:none}
+.search-wrap input:focus{border-color:var(--purple);box-shadow:0 0 0 3px #9575ff18}
+.search-icon{position:absolute;left:17px;top:15px;color:#8d96b2}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:16px 0 20px}
+.section-head h2{font-size:21px;letter-spacing:-.6px;margin:0 0 7px}
+.section-head p{color:var(--muted);font-size:13px;margin:0}
+.count{font-size:12px;color:#b8a8ff}
+.tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tool{position:relative;text-align:left;padding:20px 17px 18px;min-height:174px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#151a2b,#101421);color:var(--text);transition:transform .2s,border-color .2s,background .2s;overflow:hidden}
+.tool:hover{transform:translateY(-3px);border-color:#8069d7;background:#191b32}
+.tool-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;margin-bottom:17px}
+.tool-icon svg{width:22px;height:22px}
+.purple{background:#a78bfa1c;color:#bba6ff}
+.blue{background:#55c8ff18;color:#72d5ff}
+.pink{background:#f472b61b;color:#f5a1cf}
+.green{background:#34d3991b;color:#70e6bb}
+.orange{background:#fb923c1c;color:#ffb477}
+.tool strong{display:block;font-size:14px;margin-bottom:7px}
+.tool small{display:block;color:var(--muted);font-size:12px;line-height:1.55}
+.tool .arrow{position:absolute;right:15px;top:17px;color:#6d7691;font-size:18px}
+.empty{display:none;text-align:center;color:var(--muted);padding:35px}
+.privacy{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;margin:35px 0 47px;color:#9ca6bf;font-size:12px}
+.privacy span{display:flex;align-items:center;gap:7px}
+.upload-panel{margin-top:44px;border:1px dashed #55507c;border-radius:20px;padding:28px 20px;text-align:center;background:linear-gradient(120deg,#17162b,#121626)}
+.upload-panel.dragging{border-color:#b6a1ff;background:#211d3d}
+.upload-panel h3{margin:12px 0 7px;font-size:18px}
+.upload-panel p{margin:0 auto 18px;color:var(--muted);font-size:13px;line-height:1.7}
+.primary{border:0;border-radius:11px;background:linear-gradient(110deg,#9272ff,#6c77ff);padding:12px 20px;color:white;font-weight:750;box-shadow:0 5px 24px #7865f733}
+.primary:hover{filter:brightness(1.1)}
+.file-note{color:#b4a6ff!important;margin-top:13px!important;font-size:12px!important;overflow-wrap:anywhere}
+footer{border-top:1px solid #ffffff10;padding:24px;text-align:center;color:#707a94;font-size:12px}
+footer strong{color:#aeb6ce}
+.modal-backdrop{display:none;position:fixed;inset:0;z-index:5;background:#060711d9;backdrop-filter:blur(9px);align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(100%,520px);max-height:90vh;overflow:auto;border:1px solid #353b56;border-radius:22px;background:#111526;padding:25px;box-shadow:0 24px 100px #0009}
+.modal-top{display:flex;justify-content:space-between;gap:15px;align-items:start}
+.modal h2{font-size:23px;letter-spacing:-.7px;margin:0 0 8px}
+.modal p{font-size:13px;color:var(--muted);line-height:1.7}
+.close{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#191f33;color:white;font-size:20px}
+.drop{border:1px dashed #514b7a;border-radius:15px;padding:25px 15px;text-align:center;margin:20px 0;background:#17182b}
+.drop strong{display:block;font-size:14px;margin:10px 0 5px}
+.drop p{margin:0;font-size:12px}
+.selected{font-size:12px;color:#c4b5fd;line-height:1.8;overflow-wrap:anywhere}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.secondary{border:1px solid #343950;border-radius:11px;padding:11px 15px;background:#191f33;color:white}
+.status{font-size:13px;margin-top:15px;line-height:1.6;overflow-wrap:anywhere}
+.status.error{color:#ff9fba}.status.success{color:#7ee7bb}
+footer a{color:#bcaaff;text-decoration:none}
+@media(max-width:850px){.tools{grid-template-columns:repeat(2,minmax(0,1fr))}header{padding:0 22px}}
+@media(max-width:520px){header{height:66px;padding:0 16px}.brand{font-size:19px}.header-tag{font-size:10px;padding:8px}.hero{padding:57px 0 33px}h1{letter-spacing:-2px}.hero p{font-size:14px}.tools{gap:10px}.tool{padding:16px 13px;min-height:163px}.tool-icon{width:39px;height:39px}.section-head{align-items:start}.privacy{gap:13px;flex-direction:column;align-items:center}main{padding:0 16px}}
+</style>
+</head>
+<body>
+<header>
+<a class="brand" href="#" aria-label="PaperNova home">
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M6 3.5h8l4 4V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4M8 13h8M8 16.5h6"/></svg></span>
+PaperNova
+</a>
+<nav><a href="#tools">PDF tools</a><a href="#about">About</a></nav>
+<span class="header-tag">✦ Your PDF workspace</span>
+</header>
+
+<main>
+<section class="hero">
+<div class="eyebrow"><span class="dot"></span> A smarter way to work with documents</div>
+<h1>Your PDFs,<br><span class="gradient">perfected.</span></h1>
+<p>Merge, split, convert and organize your documents with a clean, powerful toolkit designed to make work feel effortless.</p>
+<div class="search-wrap">
+<svg class="search-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+<input id="search" type="search" placeholder="Find a PDF tool..." aria-label="Search PDF tools">
+</div>
+</section>
+
+<section id="tools">
+<div class="section-head"><div><h2>Everything you need</h2><p>Choose a tool to get started.</p></div><span class="count" id="count">8 tools</span></div>
+<div class="tools" id="toolGrid">
+<button class="tool" data-tool="merge" data-name="Merge PDF" data-desc="Combine multiple PDFs into one document."><span class="arrow">↗</span><span class="tool-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="10" height="13" rx="2"/><rect x="11" y="7" width="10" height="13" rx="2"/><path d="M8 8v5m-2.5-2.5h5"/></svg></span><strong>Merge PDF</strong><small>Combine PDFs into one file.</small></button>
+<button class="tool" data-tool="split" data-name="Split PDF" data-desc="Extract a page range into a new PDF."><span class="arrow">↗</span><span class="tool-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v6l8 6v6M16 3v6l-8 6v6"/><circle cx="8" cy="3" r="1"/><circle cx="16" cy="3" r="1"/></svg></span><strong>Split PDF</strong><small>Extract pages from a document.</small></button>
+<button class="tool" data-tool="compress" data-name="Compress PDF" data-desc="Reduce a PDF's file size where possible."><span class="arrow">↗</span><span class="tool-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H4v4m0-4 6 6m6 12h4v-4m0 4-6-6M16 3h4v4m0-4-6 6M8 21H4v-4m0 4 6-6"/></svg></span><strong>Compress PDF</strong><small>Try to reduce document size.</small></button>
+<button class="tool" data-tool="rotate" data-name="Rotate PDF" data-desc="Rotate every page in a PDF."><span class="arrow">↗</span><span class="tool-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 0-2.3 5.7L20 15"/></svg></span><strong>Rotate PDF</strong><small>Fix sideways or upside-down pages.</small></button>
+<button class="tool" data-tool="jpgpdf" data-name="JPG to PDF" data-desc="Turn image files into a PDF."><span class="arrow">↗</span><span class="tool-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="1.5"/><path d="m5 17 5-5 3 3 2-2 4 4"/></svg></span><strong>JPG to PDF</strong><small>Turn your images into a PDF.</small></button>
+<button class="tool" data-tool="pdfjpg" data-name="PDF to JPG" data-desc="Convert PDF pages into images."><span class="arrow">↗</span><span class="tool-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m5 17 5-5 3 3 2-2 4 4"/></svg></span><strong>PDF to JPG</strong><small>Export pages as images.</small></button>
+<button class="tool" data-tool="protect" data-name="Protect PDF" data-desc="Add a password to a PDF."><span class="arrow">↗</span><span class="tool-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></svg></span><strong>Protect PDF</strong><small>Add password protection.</small></button>
+<button class="tool" data-tool="word" data-name="PDF to Word" data-desc="Convert a PDF to an editable Word document."><span class="arrow">↗</span><span class="tool-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h10l4 4v14H5zM15 3v5h4"/><path d="m8 12 2 6 2-4 2 4 2-6"/></svg></span><strong>PDF to Word</strong><small>Make document text editable.</small></button>
+</div>
+<div class="empty" id="empty">No matching tools. Try another search.</div>
+</section>
+
+<section class="upload-panel" id="uploadPanel">
+<svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#b6a1ff" stroke-width="1.6"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>
+<h3>Ready when you are</h3>
+<p>Choose a tool above, then add your files.<br>Your documents deserve a better workflow.</p>
+<button class="primary" id="browseBtn">Choose a PDF tool</button>
+</section>
+
+<div class="privacy" id="about"><span>✦ Thoughtful, simple tools</span><span>◈ No account required for this demo</span><span>⌁ Made for your workflow</span></div>
+</main>
+<footer><strong>PaperNova</strong> · Your PDFs, perfected. <br><br>Independent project. Not affiliated with iLovePDF or any other PDF service.</footer>
+
+<div class="modal-backdrop" id="backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal">
+<div class="modal-top"><div><h2 id="modalTitle">Merge PDF</h2><p id="modalDesc">Combine multiple PDFs into one document.</p></div><button class="close" id="closeBtn" aria-label="Close">×</button></div>
+<div class="drop" id="drop">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#b6a1ff" stroke-width="1.6"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>
+<strong>Drop your files here</strong><p>or select files from your device</p>
+<div class="modal-actions" style="justify-content:center"><button class="primary" id="chooseFiles">Select files</button><input id="fileInput" type="file" accept=".pdf,application/pdf" multiple hidden></div>
+</div>
+<div class="selected" id="selected">No files selected yet.</div>
+<div id="options"></div>
+<div class="modal-actions"><button class="primary" id="processBtn">Process files</button><button class="secondary" id="clearBtn">Clear selection</button></div>
+<div class="status" id="status" role="status" aria-live="polite"></div>
+<p>Privacy note: this interface is a work in progress. File processing happens locally when supported. Avoid using confidential documents until you have reviewed the finished product.</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const backdrop=$('backdrop'),input=$('fileInput'),selected=$('selected'),status=$('status'),options=$('options');
+let currentTool='',files=[];
+const labels={
+merge:['Merge PDF','Combine multiple PDF documents into one file.'],
+split:['Split PDF','Extract a page range from a PDF.'],
+compress:['Compress PDF','Create a PDF copy. This basic version does not guarantee a smaller file size.'],
+rotate:['Rotate PDF','Rotate every page by a selected angle.'],
+jpgpdf:['JPG to PDF','Convert selected JPG or PNG images into a PDF.'],
+pdfjpg:['PDF to JPG','Export each page of a PDF as a JPG image.'],
+protect:['Protect PDF','Password protection is not available in this first version.'],
+word:['PDF to Word','Editable Word conversion is not available in this first version.']
+};
+function openTool(tool){
+currentTool=tool;files=[];input.value='';selected.textContent='No files selected yet.';status.textContent='';status.className='status';options.innerHTML='';
+$('modalTitle').textContent=labels[tool][0];$('modalDesc').textContent=labels[tool][1];
+input.accept=tool==='jpgpdf'?'image/jpeg,image/png,.jpg,.jpeg,.png':'.pdf,application/pdf';
+input.multiple=tool==='merge'||tool==='jpgpdf'||tool==='pdfjpg';
+if(tool==='split'){
+options.innerHTML='<label for="range" style="display:block;margin:15px 0 7px;font-size:13px">Page range (e.g. 1-3)</label><input id="range" placeholder="1-3" style="width:100%;padding:12px;background:#0b0d18;border:1px solid #343950;border-radius:10px;color:white">';
+}
+if(tool==='rotate'){
+options.innerHTML='<label for="angle" style="display:block;margin:15px 0 7px;font-size:13px">Rotation</label><select id="angle" style="width:100%;padding:12px;background:#0b0d18;border:1px solid #343950;border-radius:10px;color:white"><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option></select>';
+}
+backdrop.classList.add('open');$('processBtn').disabled=false;
+if(tool==='protect'||tool==='word'){
+status.textContent=tool==='protect'?'Password encryption will be added in a later version.':'High-quality PDF-to-Word conversion needs a dedicated conversion engine and will be added later.';
+$('processBtn').disabled=true;
+}
+}
+function closeModal(){backdrop.classList.remove('open')}
+function showFiles(list){
+files=Array.from(list);
+selected.textContent=files.length?files.map((f,i)=>(i+1)+'. '+f.name+' ('+formatSize(f.size)+')').join('\n'):'No files selected yet.';
+selected.style.whiteSpace='pre-line';status.textContent='';status.className='status';
+}
+function formatSize(n){return n<1024? n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(2)+' MB'}
+function message(text,kind=''){status.textContent=text;status.className='status '+kind}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
+function baseName(name){return name.replace(/\.[^.]+$/,'').replace(/[^\w-]+/g,'_')||'papernova'}
+async function processFiles(){
+if(!files.length){message('Please select at least one file first.','error');return}
+const PDFLib=window.PDFLib;
+try{
+$('processBtn').disabled=true;message('Processing your files…');
+if(currentTool==='merge'){
+if(files.length<2)throw Error('Select at least two PDF files to merge.');
+const out=await PDFLib.PDFDocument.create();
+for(const f of files){const src=await PDFLib.PDFDocument.load(await f.arrayBuffer());const pages=await out.copyPages(src,src.getPageIndices());pages.forEach(p=>out.addPage(p))}
+downloadBlob(new Blob([await out.save()],{type:'application/pdf'}),'papernova-merged.pdf');
+}
+else if(currentTool==='split'){
+if(files.length!==1)throw Error('Select exactly one PDF to split.');
+const src=await PDFLib.PDFDocument.load(await files[0].arrayBuffer());
+const raw=$('range').value.trim();
+if(!raw)throw Error('Enter a page range, such as 1-3.');
+let ids=[];
+for(const part of raw.split(',')){const m=part.trim().match(/^(\d+)(?:\s*-\s*(\d+))?$/);if(!m)throw Error('Use a range like 1-3 or 1,3,5.');const a=+m[1],b=+(m[2]||m[1]);if(a<1||b<a||b>src.getPageCount())throw Error('Page range is outside this document. It has '+src.getPageCount()+' pages.');for(let p=a;p<=b;p++)ids.push(p-1)}
+ids=[...new Set(ids)];const out=await PDFLib.PDFDocument.create();const pages=await out.copyPages(src,ids);pages.forEach(p=>out.addPage(p));downloadBlob(new Blob([await out.save()],{type:'application/pdf'}),baseName(files[0].name)+'-split.pdf');
+}
+else if(currentTool==='rotate'){
+if(files.length!==1)throw Error('Select exactly one PDF.');
+const doc=await PDFLib.PDFDocument.load(await files[0].arrayBuffer()),angle=+$('angle').value;
+doc.getPages().forEach(p=>p.setRotation(PDFLib.degrees((p.getRotation().angle+angle)%360)));
+downloadBlob(new Blob([await doc.save()],{type:'application/pdf'}),baseName(files[0].name)+'-rotated.pdf');
+}
+else if(currentTool==='compress'){
+if(files.length!==1)throw Error('Select exactly one PDF.');
+const doc=await PDFLib.PDFDocument.load(await files[0].arrayBuffer());
+downloadBlob(new Blob([await doc.save({useObjectStreams:true})],{type:'application/pdf'}),baseName(files[0].name)+'-processed.pdf');
+message('Finished. This basic save may not reduce file size.','success');return;
+}
+else if(currentTool==='jpgpdf'){
+const {jsPDF}=window.jspdf;const out=new jsPDF({unit:'pt',format:'a4'});let first=true;
+for(const f of files){if(!/^image\/(jpeg|png)$/.test(f.type))throw Error('Choose JPG or PNG image files only.');const data=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(f)});const img=await new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(Error('Could not read '+f.name));i.src=data});const pageW=out.internal.pageSize.getWidth(),pageH=out.internal.pageSize.getHeight(),ratio=Math.min(pageW/img.width,pageH/img.height),w=img.width*ratio,h=img.height*ratio;if(!first)out.addPage();first=false;out.addImage(data,f.type==='image/png'?'PNG':'JPEG',(pageW-w)/2,(pageH-h)/2,w,h)}
+out.save('papernova-images.pdf');
+}
+else if(currentTool==='pdfjpg'){
+if(files.length!==1)throw Error('Select exactly one PDF.');
+const pdfjs=window.pdfjsLib;if(!pdfjs)throw Error('The PDF rendering library did not load. Check your internet connection.');
+pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const pdf=await pdfjs.getDocument({data:new Uint8Array(await files[0].arrayBuffer())}).promise;
+for(let n=1;n<=pdf.numPages;n++){message('Rendering page '+n+' of '+pdf.numPages+'…');const page=await pdf.getPage(n),viewport=page.getViewport({scale:1.7}),canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.92));downloadBlob(blob,baseName(files[0].name)+'-page-'+n+'.jpg');await new Promise(resolve=>setTimeout(resolve,150))}
+}
+else throw Error('This tool is not available yet.');
+message('Done! Your download should be ready.','success');
+}catch(err){message(err.message||'Something went wrong while processing the files.','error')}
+finally{$('processBtn').disabled=false}
+}
+document.querySelectorAll('.tool').forEach(btn=>btn.addEventListener('click',()=>openTool(btn.dataset.tool)));
+$('search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();let shown=0;document.querySelectorAll('.tool').forEach(b=>{const match=(b.dataset.name+' '+b.dataset.desc).toLowerCase().includes(q);b.style.display=match?'':'none';if(match)shown++});$('count').textContent=shown+' tools';$('empty').style.display=shown?'none':'block'});
+$('browseBtn').addEventListener('click',()=>{document.querySelector('#tools').scrollIntoView({behavior:'smooth'});$('search').focus()});
+$('closeBtn').addEventListener('click',closeModal);
+backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+$('chooseFiles').addEventListener('click',()=>input.click());
+input.addEventListener('change',()=>showFiles(input.files));
+$('clearBtn').addEventListener('click',()=>{files=[];input.value='';showFiles([])});
+$('processBtn').addEventListener('click',processFiles);
+const drop=$('drop');
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.borderColor='#b6a1ff'});
+drop.addEventListener('dragleave',()=>drop.style.borderColor='');
+drop.addEventListener('drop',e=>{e.preventDefault();drop.style.borderColor='';showFiles(e.dataTransfer.files)});
+</script>
+</body>
+</html>
